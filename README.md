@@ -2,6 +2,8 @@
 
 CodeAnt AI is a modern web application for managing repositories with AI-powered code analysis and auto-fixing capabilities. It provides an intuitive interface for developers to manage their code repositories with advanced features like automated code review and security scanning.
 
+🚀 **Live Demo**: [CodeAnt AI Platform](https://codeant-frontend-jwtbxhzze-kartikeyshivams-projects.vercel.app/login)
+
 ## Screenshots
 
 ### Dashboard - Light Mode
@@ -113,3 +115,10 @@ For support, email support@codeant.ai or join our Slack community.
 - [Heroicons](https://heroicons.com/) for the beautiful icons
 - [Tailwind CSS](https://tailwindcss.com/) for the utility-first CSS framework
 - [React](https://reactjs.org/) for the frontend library
+
+## Quick Links
+
+- 🌐 [Live Demo](https://codeant-frontend-jwtbxhzze-kartikeyshivams-projects.vercel.app/login)
+- 📦 [GitHub Repository](https://github.com/kartikey-shivam/codeant-frontend)
+- 📄 [Documentation](#)
+- 🐛 [Report an Issue](https://github.com/kartikey-shivam/codeant-frontend/issues)
