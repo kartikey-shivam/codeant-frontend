@@ -2,7 +2,19 @@
 
 CodeAnt AI is a modern web application for managing repositories with AI-powered code analysis and auto-fixing capabilities. It provides an intuitive interface for developers to manage their code repositories with advanced features like automated code review and security scanning.
 
-![CodeAnt AI Dashboard](screenshot.png)
+## Screenshots
+
+### Dashboard - Light Mode
+
+![CodeAnt AI Dashboard Light](public/screenshot2.png)
+
+### Dashboard - Dark Mode
+
+![CodeAnt AI Dashboard Dark](public/screenshot3.png)
+
+### Authentication Page
+
+![CodeAnt AI Auth](public/screenshot1.png)
 
 ## Features
 
@@ -72,8 +84,6 @@ The application supports both light and dark themes:
 - Implements system preference detection
 - Allows manual theme switching
 - Persists theme preference
-
-[Rest of the README remains the same...]
 
 ## Key Components
 
