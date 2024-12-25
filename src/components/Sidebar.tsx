@@ -51,16 +51,18 @@ function Sidebar({
       />
 
       {/* Sidebar content */}
-      <div className="fixed inset-y-0 left-0 w-[280px] bg-white transform transition-transform md:translate-x-0 md:static md:h-screen">
+      <div className="fixed inset-y-0 left-0 w-[280px] bg-white dark:bg-dark-card transform transition-transform md:translate-x-0 md:static md:h-screen">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-gray-100">
+        <div className="flex items-center justify-between p-4 border-b border-gray-100 dark:border-dark-border">
           <div className="flex items-center gap-2">
             <img src="/logo_codeant.svg" alt="CodeAnt AI" className="w-8 h-8" />
-            <span className="text-lg font-medium">CodeAnt AI</span>
+            <span className="text-lg font-medium text-gray-900 dark:text-dark-text-primary">
+              CodeAnt AI
+            </span>
           </div>
           <button
             onClick={onClose}
-            className="p-1 text-gray-500 hover:text-gray-700 md:hidden"
+            className="p-1 text-gray-500 hover:text-gray-700 dark:text-dark-text-secondary dark:hover:text-dark-text-primary md:hidden"
           >
             <XMarkIcon className="w-6 h-6" />
           </button>
@@ -70,14 +72,14 @@ function Sidebar({
         <div className="p-2 relative">
           <button
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-            className="w-full flex items-center justify-between p-2 text-gray-700 hover:bg-gray-50 rounded-md"
+            className="w-full flex items-center justify-between p-2 text-gray-700 dark:text-dark-text-primary hover:bg-gray-50 dark:hover:bg-dark-border rounded-md"
           >
             <span className="text-sm font-medium">{selectedUser.name}</span>
-            <ChevronDownIcon className="w-5 h-5 text-gray-400" />
+            <ChevronDownIcon className="w-5 h-5 text-gray-400 dark:text-dark-text-secondary" />
           </button>
           {isDropdownOpen && (
-            <div className="absolute left-2 right-2 mt-1 py-1 bg-white border border-gray-200 rounded-md shadow-lg z-50">
-              <div className="px-3 py-2 text-xs font-medium text-gray-500">
+            <div className="absolute left-2 right-2 mt-1 py-1 bg-white dark:bg-dark-card border border-gray-200 dark:border-dark-border rounded-md shadow-lg z-50">
+              <div className="px-3 py-2 text-xs font-medium text-gray-500 dark:text-dark-text-secondary">
                 Personal Account
               </div>
               {userOptions
@@ -91,15 +93,15 @@ function Sidebar({
                     }}
                     className={`w-full text-left px-3 py-2 text-sm ${
                       selectedUser.id === option.id
-                        ? "bg-blue-50 text-blue-600"
-                        : "text-gray-700 hover:bg-gray-50"
+                        ? "bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400"
+                        : "text-gray-700 dark:text-dark-text-primary hover:bg-gray-50 dark:hover:bg-dark-border"
                     }`}
                   >
                     {option.name}
                   </button>
                 ))}
 
-              <div className="px-3 py-2 text-xs font-medium text-gray-500 border-t border-gray-100 mt-1">
+              <div className="px-3 py-2 text-xs font-medium text-gray-500 dark:text-dark-text-secondary border-t border-gray-100 dark:border-dark-border mt-1">
                 Teams
               </div>
               {userOptions
@@ -113,8 +115,8 @@ function Sidebar({
                     }}
                     className={`w-full text-left px-3 py-2 text-sm ${
                       selectedUser.id === option.id
-                        ? "bg-blue-50 text-blue-600"
-                        : "text-gray-700 hover:bg-gray-50"
+                        ? "bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400"
+                        : "text-gray-700 dark:text-dark-text-primary hover:bg-gray-50 dark:hover:bg-dark-border"
                     }`}
                   >
                     {option.name}
@@ -134,7 +136,7 @@ function Sidebar({
         </nav>
 
         {/* Bottom Links */}
-        <div className="absolute bottom-0 left-0 right-0 p-2 border-t border-gray-100">
+        <div className="absolute bottom-0 left-0 right-0 p-2 border-t border-gray-100 dark:border-dark-border">
           <SidebarLink Icon={PhoneIcon} text="Support" />
           <SidebarLink
             Icon={ArrowRightOnRectangleIcon}
