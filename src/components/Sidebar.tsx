@@ -1,110 +1,146 @@
 import React, { useState } from "react";
-import SidebarLink from "./SidebarLink";
 import {
-  HomeIcon,
   CodeBracketIcon,
   CloudIcon,
-  DocumentTextIcon,
-  CogIcon,
-  PhoneIcon,
-  ArrowLeftOnRectangleIcon,
+  HomeIcon,
+  Cog6ToothIcon,
+  BookOpenIcon,
   XMarkIcon,
   ChevronDownIcon,
-  MoonIcon,
-  SunIcon,
+  PhoneIcon,
+  ArrowRightOnRectangleIcon,
 } from "@heroicons/react/24/outline";
-import { SidebarProps, NavLink, BottomLink } from "../types";
-import { useTheme } from "../context/ThemeContext";
+import SidebarLink from "./SidebarLink";
+import { AuthProps } from "../types";
+
+interface SidebarProps extends AuthProps {
+  onClose: () => void;
+}
+
+interface UserOption {
+  id: string;
+  name: string;
+  type: "Personal" | "Team";
+}
 
 function Sidebar({
-  onClose,
   setIsAuthenticated,
+  onClose,
 }: SidebarProps): React.ReactElement {
-  const { theme, toggleTheme } = useTheme();
-  const [isUserDropdownOpen, setIsUserDropdownOpen] = useState<boolean>(false);
-
-  const navLinks: NavLink[] = [
-    { icon: HomeIcon, text: "Repositories" },
-    { icon: CodeBracketIcon, text: "AI Code Review" },
-    { icon: CloudIcon, text: "Cloud Security" },
-    { icon: DocumentTextIcon, text: "How to Use" },
-    { icon: CogIcon, text: "Settings" },
+  const userOptions: UserOption[] = [
+    { id: "1", name: "UtkarshDhairyaPanwar", type: "Personal" },
+    { id: "2", name: "PersonalAccount", type: "Personal" },
+    { id: "3", name: "CodeAnt-Team", type: "Team" },
+    { id: "4", name: "Development-Team", type: "Team" },
+    { id: "5", name: "Testing-Team", type: "Team" },
   ];
 
-  const handleLogout = (): void => {
+  const [selectedUser, setSelectedUser] = useState<UserOption>(userOptions[0]);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const handleLogout = () => {
     setIsAuthenticated(false);
   };
 
-  const bottomLinks: BottomLink[] = [
-    { icon: PhoneIcon, text: "Support" },
-    {
-      icon: ArrowLeftOnRectangleIcon,
-      text: "Logout",
-      onClick: handleLogout,
-    },
-  ];
-
   return (
-    <div className="h-full bg-light-card dark:bg-dark-card">
-      {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b dark:border-gray-700">
-        <div className="flex items-center gap-2">
-          <img src="/logo_codeant.svg" alt="CodeAnt AI" className="w-8 h-8" />
-          <span className="font-semibold text-light-text-primary dark:text-dark-text-primary">
-            CodeAnt AI
-          </span>
-        </div>
-        <div className="flex items-center gap-2">
+    <div className="fixed inset-0 z-40 md:relative md:inset-auto">
+      {/* Overlay */}
+      <div
+        className="fixed inset-0 bg-gray-600 bg-opacity-50 transition-opacity md:hidden"
+        onClick={onClose}
+      />
+
+      {/* Sidebar content */}
+      <div className="fixed inset-y-0 left-0 w-[280px] bg-white transform transition-transform md:translate-x-0 md:static md:h-screen">
+        {/* Header */}
+        <div className="flex items-center justify-between p-4 border-b border-gray-100">
+          <div className="flex items-center gap-2">
+            <img src="/logo_codeant.svg" alt="CodeAnt AI" className="w-8 h-8" />
+            <span className="text-lg font-medium">CodeAnt AI</span>
+          </div>
           <button
-            onClick={toggleTheme}
-            className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+            onClick={onClose}
+            className="p-1 text-gray-500 hover:text-gray-700 md:hidden"
           >
-            {theme === "dark" ? (
-              <SunIcon className="w-5 h-5 text-gray-500 dark:text-gray-400" />
-            ) : (
-              <MoonIcon className="w-5 h-5 text-gray-500" />
-            )}
-          </button>
-          <button onClick={onClose} className="md:hidden">
-            <XMarkIcon className="w-6 h-6 text-light-text-primary dark:text-dark-text-primary" />
+            <XMarkIcon className="w-6 h-6" />
           </button>
         </div>
-      </div>
 
-      {/* User Dropdown */}
-      <div className="px-3 py-2">
-        <button
-          onClick={() => setIsUserDropdownOpen(!isUserDropdownOpen)}
-          className="w-full flex items-center justify-between p-2 hover:bg-gray-50 rounded-lg"
-        >
-          <span className="text-sm">UtkarshDhairyaPanwar</span>
-          <ChevronDownIcon className="w-4 h-4" />
-        </button>
-      </div>
+        {/* User Dropdown */}
+        <div className="p-2 relative">
+          <button
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            className="w-full flex items-center justify-between p-2 text-gray-700 hover:bg-gray-50 rounded-md"
+          >
+            <span className="text-sm font-medium">{selectedUser.name}</span>
+            <ChevronDownIcon className="w-5 h-5 text-gray-400" />
+          </button>
+          {isDropdownOpen && (
+            <div className="absolute left-2 right-2 mt-1 py-1 bg-white border border-gray-200 rounded-md shadow-lg z-50">
+              <div className="px-3 py-2 text-xs font-medium text-gray-500">
+                Personal Account
+              </div>
+              {userOptions
+                .filter((option) => option.type === "Personal")
+                .map((option) => (
+                  <button
+                    key={option.id}
+                    onClick={() => {
+                      setSelectedUser(option);
+                      setIsDropdownOpen(false);
+                    }}
+                    className={`w-full text-left px-3 py-2 text-sm ${
+                      selectedUser.id === option.id
+                        ? "bg-blue-50 text-blue-600"
+                        : "text-gray-700 hover:bg-gray-50"
+                    }`}
+                  >
+                    {option.name}
+                  </button>
+                ))}
 
-      {/* Navigation Links */}
-      <nav className="mt-2 px-3">
-        {navLinks.map((link) => (
+              <div className="px-3 py-2 text-xs font-medium text-gray-500 border-t border-gray-100 mt-1">
+                Teams
+              </div>
+              {userOptions
+                .filter((option) => option.type === "Team")
+                .map((option) => (
+                  <button
+                    key={option.id}
+                    onClick={() => {
+                      setSelectedUser(option);
+                      setIsDropdownOpen(false);
+                    }}
+                    className={`w-full text-left px-3 py-2 text-sm ${
+                      selectedUser.id === option.id
+                        ? "bg-blue-50 text-blue-600"
+                        : "text-gray-700 hover:bg-gray-50"
+                    }`}
+                  >
+                    {option.name}
+                  </button>
+                ))}
+            </div>
+          )}
+        </div>
+
+        {/* Navigation */}
+        <nav className="px-2 py-3">
+          <SidebarLink Icon={HomeIcon} text="Repositories" active />
+          <SidebarLink Icon={CodeBracketIcon} text="AI Code Review" />
+          <SidebarLink Icon={CloudIcon} text="Cloud Security" />
+          <SidebarLink Icon={BookOpenIcon} text="How to Use" />
+          <SidebarLink Icon={Cog6ToothIcon} text="Settings" />
+        </nav>
+
+        {/* Bottom Links */}
+        <div className="absolute bottom-0 left-0 right-0 p-2 border-t border-gray-100">
+          <SidebarLink Icon={PhoneIcon} text="Support" />
           <SidebarLink
-            key={link.text}
-            Icon={link.icon}
-            text={link.text}
-            active={link.text === "Repositories"}
+            Icon={ArrowRightOnRectangleIcon}
+            text="Logout"
+            onClick={handleLogout}
           />
-        ))}
-      </nav>
-
-      {/* Bottom Links */}
-      <div className="absolute bottom-0 left-0 w-full">
-        <div className="px-3 py-2">
-          {bottomLinks.map((link) => (
-            <SidebarLink
-              key={link.text}
-              Icon={link.icon}
-              text={link.text}
-              onClick={link.onClick}
-            />
-          ))}
         </div>
       </div>
     </div>

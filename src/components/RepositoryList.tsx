@@ -1,63 +1,57 @@
 import React from "react";
-import { ArrowPathIcon } from "@heroicons/react/24/outline";
+import {
+  ArrowPathIcon,
+  PlusIcon,
+  MagnifyingGlassIcon,
+} from "@heroicons/react/24/outline";
 import RepositoryItem from "./RepositoryItem";
-
-interface Repository {
-  name: string;
-  visibility: "Public" | "Private";
-  language: string;
-  size: string;
-  updatedAt: string;
-}
+import repoData from "../data/repositories.json";
+import { Repository } from "../types";
 
 function RepositoryList(): React.ReactElement {
-  const repositories: Repository[] = [
-    {
-      name: "design-system",
-      visibility: "Public",
-      language: "React",
-      size: "7320 KB",
-      updatedAt: "1 day ago",
-    },
-    {
-      name: "codeant-ci-app",
-      visibility: "Private",
-      language: "Javascript",
-      size: "5871 KB",
-      updatedAt: "2 days ago",
-    },
-    // Add more repositories as needed
-  ];
-
   return (
-    <div className="p-4 md:p-8">
-      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mb-6">
-        <div>
-          <h1 className="text-xl md:text-2xl font-semibold">Repositories</h1>
-          <p className="text-sm text-gray-500">33 total repositories</p>
-        </div>
-        <div className="flex gap-3">
-          <button className="p-2 md:px-3 md:py-2 border rounded-lg hover:bg-gray-50">
-            <ArrowPathIcon className="w-5 h-5 text-gray-600" />
-          </button>
-          <button className="flex-1 md:flex-none px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-            Add Repository
-          </button>
-        </div>
-      </div>
+    <div className="p-4 md:p-8 h-screen lg:ml-4">
+      <div className="bg-white rounded-lg border border-gray-200 h-full flex flex-col">
+        <div className="mt-4 px-4 flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+          <div>
+            <h1 className="text-xl font-semibold text-gray-900">
+              Repositories
+            </h1>
+            <p className="text-sm text-gray-500">
+              {repoData.totalCount} total repositories
+            </p>
+          </div>
+          <div className="flex items-center gap-2">
+            <button className="flex items-center gap-2 px-3 py-1.5 text-sm text-gray-600 bg-white border border-gray-200 rounded-md hover:bg-gray-50">
+              <ArrowPathIcon className="w-4 h-4" />
+              <span>Refresh All</span>
+            </button>
 
-      <div className="mb-6">
-        <input
-          type="text"
-          placeholder="Search Repositories"
-          className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-      </div>
+            <button className="flex items-center gap-2 px-3 py-1.5 text-sm text-white bg-blue-600 rounded-md hover:bg-blue-700">
+              <PlusIcon className="w-4 h-4" />
+              <span>Add Repository</span>
+            </button>
+          </div>
+        </div>
 
-      <div className="space-y-4">
-        {repositories.map((repo) => (
-          <RepositoryItem key={repo.name} repository={repo} />
-        ))}
+        <div className="mt-4 px-4 relative max-w-[300px] mb-4">
+          <div className="absolute inset-y-0 left-6 flex items-center pointer-events-none">
+            <MagnifyingGlassIcon className="w-4 h-4 text-gray-400" />
+          </div>
+          <input
+            type="text"
+            placeholder="Search Repositories"
+            className="w-full pl-9 pr-4 py-1.5 text-sm text-gray-600 bg-white border border-gray-200 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+          />
+        </div>
+
+        <div className="overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 hover:scrollbar-thumb-gray-400 scrollbar-track-transparent">
+          <div className="bg-white cursor-pointer rounded-lg">
+            {repoData.repositories.map((repo) => (
+              <RepositoryItem key={repo.name} repository={repo as Repository} />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

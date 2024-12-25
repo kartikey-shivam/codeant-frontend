@@ -46,7 +46,7 @@ function App(): React.ReactElement {
                   <div className="md:hidden flex items-center justify-between p-4 border-b bg-white">
                     <div className="flex items-center gap-2">
                       <img
-                        src="/logo.svg"
+                        src="/logo_codeant.svg"
                         alt="CodeAnt AI"
                         className="w-8 h-8"
                       />
@@ -83,7 +83,7 @@ function App(): React.ReactElement {
                         setIsAuthenticated={setIsAuthenticated}
                       />
                     </div>
-                    <div className="flex-1">
+                    <div className="flex-1 w-full">
                       <RepositoryList />
                     </div>
                   </div>
